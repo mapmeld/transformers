@@ -210,16 +210,8 @@ def main():
     parser.add_argument(
         "--fp16",
         action="store_true",
-        help="Whether to use 16-bit (mixed) precision (through NVIDIA apex) instead of 32-bit",
-    )
-    parser.add_argument(
-        "--fp16_opt_level",
-        type=str,
-        default="O1",
-        help=(
-            "For fp16: Apex AMP optimization level selected in ['O0', 'O1', 'O2', and 'O3']."
-            "See details at https://nvidia.github.io/apex/amp.html"
-        ),
+        default=True,
+        help="Whether to use 16-bit (mixed) precision (through PyTorch apex) instead of 32-bit",
     )
     parser.add_argument("--n_gpu", type=int, default=1, help="Number of GPUs in the node.")
     parser.add_argument("--local_rank", type=int, default=-1, help="Distributed training - Local rank")
