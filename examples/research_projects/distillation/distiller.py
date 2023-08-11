@@ -21,6 +21,7 @@ import time
 
 import psutil
 import torch
+import torch.amp as amp
 from grouped_batch_sampler import GroupedBatchSampler, create_lengths_groups
 from lm_seqs_dataset import LmSeqsDataset
 from torch import nn
@@ -47,7 +48,7 @@ class Distiller:
         self.params = params
         self.dump_path = params.dump_path
         self.multi_gpu = params.multi_gpu
-        self.fp16 = params.fp16
+        self.fp16 = True
 
         self.student = student
         self.teacher = teacher
@@ -152,9 +153,9 @@ class Distiller:
 
         if self.fp16:
             logger.info(f"Using fp16 training: O1 level")
-            # self.student, self.optimizer = amp.initialize(
-            #     self.student, self.optimizer
-            # )
+            self.student, self.optimizer = amp.initialize(
+                self.student, self.optimizer
+            )
             self.teacher = self.teacher.half()
 
         if self.multi_gpu:
