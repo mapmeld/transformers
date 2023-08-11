@@ -153,9 +153,9 @@ class Distiller:
 
         if self.fp16:
             logger.info(f"Using fp16 training: O1 level")
-            self.student, self.optimizer = amp.initialize(
-                self.student, self.optimizer
-            )
+            # self.student, self.optimizer = amp.initialize(
+            #     self.student, self.optimizer
+            # )
             self.teacher = self.teacher.half()
 
         if self.multi_gpu:
@@ -370,7 +370,7 @@ class Distiller:
         attention_mask: `torch.tensor(bs, seq_length)` - The attention mask for self attention.
         lm_labels: `torch.tensor(bs, seq_length)` - The language modeling labels (mlm labels for MLM and clm labels for CLM).
         """
-        with torch.cuda.amp.autocast():
+        with torch.autocast(device_type='cuda', dtype=torch.float16):
             if self.mlm:
                 student_outputs = self.student(
                     input_ids=input_ids, attention_mask=attention_mask
