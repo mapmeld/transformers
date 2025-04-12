@@ -525,6 +525,7 @@ MODEL_FOR_CAUSAL_LM_MAPPING_NAMES = OrderedDict(
         ("electra", "ElectraForCausalLM"),
         ("emu3", "Emu3ForCausalLM"),
         ("ernie", "ErnieForCausalLM"),
+        ("esm", "EsmModel"),
         ("falcon", "FalconForCausalLM"),
         ("falcon_mamba", "FalconMambaForCausalLM"),
         ("fuyu", "FuyuForCausalLM"),
